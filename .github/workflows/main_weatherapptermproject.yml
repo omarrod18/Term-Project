@@ -17,10 +17,19 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '21'
-          distribution: 'temurin' # or use 'adopt', 'zulu', etc.
+          distribution: 'temurin'
+
+      - name: Verify Java version
+        run: java -version
+
+      - name: List directory contents before build
+        run: dir
 
       - name: Build with Maven
         run: mvn clean install
+
+      - name: List directory contents after build
+        run: dir target
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
