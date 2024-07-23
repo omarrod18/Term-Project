@@ -49,25 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
         createSlides(data.hourly.slice(0, 24), 'hourly', 'hourly');
     };
 
-    const displayHistoricalData = async (lat, lon) => {
-        const historical = document.getElementById('historical');
-        let historyHTML = '';
-        for (let i = 1; i <= 5; i++) {
-            const timestamp = Math.floor(Date.now() / 1000) - (i * 24 * 60 * 60);
-            const response = await fetch(`${BASE_URL}/timemachine?lat=${lat}&lon=${lon}&dt=${timestamp}&units=imperial&appid=${API_KEY}`);
-            const data = await response.json();
-            historyHTML += `
-                <div>
-                    <p>Date: ${new Date(data.current.dt * 1000).toDateString()}</p>
-                    <p>Temperature: ${data.current.temp}°F</p>
-                    <p>Condition: ${data.current.weather[0].description}</p>
-                    <img src="https://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png" alt="${data.current.weather[0].description}" class="weather-icon">
-                </div>
-            `;
-        }
-        historical.innerHTML = historyHTML;
-    };
-
     const displayWeatherAlerts = (data) => {
         const alerts = document.getElementById('alerts');
         if (data.alerts && data.alerts.length > 0) {
@@ -126,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
             display3DayDetailedForecast(data);
             display24HourForecast(data);
             displayWeatherAlerts(data);
-            await displayHistoricalData(lat, lon);
         } catch (error) {
             console.error('Error fetching weather data:', error);
         }
