@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         current.innerHTML = `
             <p>Temperature: ${data.current.temp}°F</p>
             <p>Condition: ${data.current.weather[0].description}</p>
+            <img src="https://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png" alt="${data.current.weather[0].description}" class="weather-icon">
         `;
     };
 
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>Date: ${new Date(day.dt * 1000).toDateString()}</p>
                 <p>Temperature: ${day.temp ? day.temp.day : day.temp}°F</p>
                 <p>Condition: ${day.weather[0].description}</p>
+                <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="${day.weather[0].description}" class="weather-icon">
                 ${type === 'detailed' ? `
                     <p>Humidity: ${day.humidity}%</p>
                     <p>Wind Speed: ${day.wind_speed} mph</p>
@@ -59,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Date: ${new Date(data.current.dt * 1000).toDateString()}</p>
                     <p>Temperature: ${data.current.temp}°F</p>
                     <p>Condition: ${data.current.weather[0].description}</p>
+                    <img src="https://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png" alt="${data.current.weather[0].description}" class="weather-icon">
                 </div>
             `;
         }
@@ -159,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.plusSlides = plusSlides; // Make plusSlides accessible in the global scope
 });
+
 
 
 
