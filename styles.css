@@ -2,81 +2,123 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #e0f7fa;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #f0f0f0;
+    min-height: 100vh;
 }
+
 #weather-app {
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     padding: 20px;
-    background: white;
+    background: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 header {
     text-align: center;
 }
+
 #search-section {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 #search-input {
     width: 100%;
+    max-width: 400px;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 #suggestions {
+    width: 100%;
+    max-width: 400px;
     max-height: 150px;
     overflow-y: auto;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 #suggestions div {
     padding: 10px;
     cursor: pointer;
 }
+
 #suggestions div:hover {
     background-color: #f0f0f0;
 }
+
 #recently-viewed {
     margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
 }
+
 #recent-locations {
     list-style-type: none;
     padding: 0;
 }
+
 #recent-locations li {
     cursor: pointer;
     margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
+
+#recent-locations li:hover {
+    background-color: #f0f0f0;
+}
+
 section {
     margin: 20px 0;
 }
+
 h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
+    color: #00796b;
 }
+
 .dropdown-content {
     display: none;
     overflow: hidden;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 10px;
 }
+
 .dropdown-toggle {
     cursor: pointer;
-    color: blue;
+    color: #00796b;
     text-decoration: underline;
 }
+
 .slideshow-container {
     position: relative;
     max-width: 100%;
     margin: auto;
 }
+
 .centered-content {
     text-align: center;
 }
+
 .prev, .next {
     cursor: pointer;
     position: absolute;
@@ -90,14 +132,18 @@ h2 {
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
+    background-color: rgba(0,0,0,0.5);
 }
+
 .next {
     right: 0;
     border-radius: 3px 0 0 3px;
 }
+
 .prev:hover, .next:hover {
     background-color: rgba(0,0,0,0.8);
 }
+
 @media (max-width: 600px) {
     body {
         padding: 10px;

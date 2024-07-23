@@ -4,11 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     const suggestions = document.getElementById('suggestions');
     const recentLocations = document.getElementById('recent-locations');
+
     let recentlyViewed = [];
+
     const getWeatherData = async (lat, lon) => {
         const response = await fetch(`${BASE_URL}?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`);
         return response.json();
     };
+
     const displayCurrentWeather = (data) => {
         const current = document.getElementById('current');
         current.innerHTML = `
@@ -16,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>Condition: ${data.current.weather[0].description}</p>
         `;
     };
+
     const createSlides = (data, containerId, type) => {
         const container = document.getElementById(containerId);
         container.innerHTML = data.map((day, index) => `
@@ -30,15 +34,19 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `).join('');
     };
+
     const display7DayOutlook = (data) => {
         createSlides(data.daily.slice(0, 7), 'outlook', 'outlook');
     };
+
     const display3DayDetailedForecast = (data) => {
         createSlides(data.daily.slice(0, 3), 'detailed', 'detailed');
     };
+
     const display24HourForecast = (data) => {
         createSlides(data.hourly.slice(0, 24), 'hourly', 'hourly');
     };
+
     const displayHistoricalData = async (lat, lon) => {
         const historical = document.getElementById('historical');
         let historyHTML = '';
@@ -56,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         historical.innerHTML = historyHTML;
     };
+
     const displayWeatherAlerts = (data) => {
         const alerts = document.getElementById('alerts');
         if (data.alerts && data.alerts.length > 0) {
@@ -71,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alerts.innerHTML = '<p>No weather alerts at this time.</p>';
         }
     };
+
     const displaySuggestions = (locations) => {
         suggestions.innerHTML = '';
         locations.forEach(location => {
@@ -85,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             suggestions.appendChild(div);
         });
     };
+
     const addToRecentlyViewed = (location) => {
         const locationStr = `${location.name}, ${location.state ? location.state + ', ' : ''}${location.country}${location.zip ? ', ' + location.zip : ''}`;
         if (!recentlyViewed.includes(locationStr)) {
@@ -97,11 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
             recentLocations.appendChild(li);
         }
     };
+
     const fetchWeatherByLocation = async (location) => {
         const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${API_KEY}`);
         const [locationData] = await response.json();
         fetchWeather(locationData.lat, locationData.lon);
     };
+
     const fetchWeather = async (lat, lon) => {
         try {
             const data = await getWeatherData(lat, lon);
@@ -115,10 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching weather data:', error);
         }
     };
+
     const toggleDropdown = (event) => {
         const content = event.target.nextElementSibling;
         content.style.display = content.style.display === 'block' ? 'none' : 'block';
     };
+
     const plusSlides = (n, type) => {
         const slides = document.getElementsByClassName(`mySlides ${type}`);
         let currentIndex = Array.from(slides).findIndex(slide => slide.style.display === 'block');
@@ -126,9 +141,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentIndex = (currentIndex + n + slides.length) % slides.length;
         slides[currentIndex].style.display = 'block';
     };
+
     document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
         toggle.addEventListener('click', toggleDropdown);
     });
+
     searchInput.addEventListener('input', async (e) => {
         const query = e.target.value;
         if (query.length > 2) {
@@ -139,7 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
             suggestions.innerHTML = '';
         }
     });
-    window.plusSlides = plusSlides;
+
+    window.plusSlides = plusSlides; // Make plusSlides accessible in the global scope
 });
 
 
